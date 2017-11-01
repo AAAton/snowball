@@ -24,7 +24,8 @@ func Stem(word string, stemStopwWords bool) string {
 	// steps will alter `w` in place.
 	//
 	preprocess(w)
-	step1(w)
+	step1a(w)
+	step1b(w)
 	step2(w)
 	step3(w)
 

@@ -7,7 +7,7 @@ import (
 // Step 1 is the stemming of various endings found in
 // R1 including "heterna", "ornas", and "andet".
 //
-func step1(w *snowballword.SnowballWord) bool {
+func step1b(w *snowballword.SnowballWord) bool {
 
 	// Possible sufficies for this step, longest first.
 	suffixes := []string{
@@ -15,7 +15,7 @@ func step1(w *snowballword.SnowballWord) bool {
 		"ernas", "ornas", "andes", "arens", "andet", "arna", "erna",
 		"orna", "ande", "arne", "aste", "aren", "ades", "erns", "ade",
 		"are", "ern", "ens", "het", "ast", "ad", "en", "ar", "er",
-		"or", "as", "es", "at", "a", "e", "s",
+		"or", "as", "es", "at", "et", "an", "a", "e",
 	}
 
 	// Using FirstSuffixIn since there are overlapping suffixes, where some might not be in the R1,
@@ -27,21 +27,6 @@ func step1(w *snowballword.SnowballWord) bool {
 		return false
 	}
 
-	if suffix == "s" {
-		// Delete if preceded by a valid s-ending. Valid s-endings inlude the
-		// following charaters: bcdfghjklmnoprtvy.
-		//
-		rsLen := len(w.RS)
-		if rsLen >= 2 {
-			switch w.RS[rsLen-2] {
-			case 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k',
-				'l', 'm', 'n', 'o', 'p', 'r', 't', 'v', 'y':
-				w.RemoveLastNRunes(len(suffixRunes))
-				return true
-			}
-		}
-		return false
-	}
 	// Remove the suffix
 	w.RemoveLastNRunes(len(suffixRunes))
 	return true

@@ -10,7 +10,7 @@ import (
 func step2(w *snowballword.SnowballWord) bool {
 
 	suffix, suffixRunes := w.FirstSuffix(
-		"dd", "gd", "nn", "dt", "gt", "kt", "tt",
+		"dd", "gd", "nn", "dt", "gt", "kt", "tt", "mm",
 	)
 
 	// If it is not in R1, do nothing
