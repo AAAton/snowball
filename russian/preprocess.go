@@ -1,7 +1,7 @@
 package russian
 
 import (
-	"github.com/kljensen/snowball/snowballword"
+	"github.com/aaaton/snowball/snowballword"
 )
 
 func preprocess(word *snowballword.SnowballWord) {
