@@ -4,11 +4,15 @@ import (
 	"github.com/aaaton/snowball/snowballword"
 )
 
+var step1bSuffixes = [][]rune{[]rune("eedly"), []rune("ingly"), []rune("edly"), []rune("ing"), []rune("eed"), []rune("ed")}
+var step1bSuffixex2 = [][]rune{[]rune("at"), []rune("bl"), []rune("iz"), []rune("bb"), []rune("dd"), []rune("ff"), []rune("gg"), []rune("mm"), []rune("nn"), []rune("pp"), []rune("rr"), []rune("tt")}
+
 // Step 1b is the normalization of various "ly" and "ed" sufficies.
 //
 func step1b(w *snowballword.SnowballWord) bool {
 
-	suffix, suffixRunes := w.FirstSuffix("eedly", "ingly", "edly", "ing", "eed", "ed")
+	suffixRunes := w.FirstRuneSuffix(step1bSuffixes)
+	suffix := string(suffixRunes)
 
 	switch suffix {
 
@@ -49,7 +53,8 @@ func step1b(w *snowballword.SnowballWord) bool {
 
 			// ...and after the deletion...
 
-			newSuffix, newSuffixRunes := w.FirstSuffix("at", "bl", "iz", "bb", "dd", "ff", "gg", "mm", "nn", "pp", "rr", "tt")
+			newSuffixRunes := w.FirstRuneSuffix(step1bSuffixex2)
+			newSuffix := string(newSuffixRunes)
 			switch newSuffix {
 
 			case "":

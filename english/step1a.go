@@ -4,11 +4,14 @@ import (
 	"github.com/aaaton/snowball/snowballword"
 )
 
+var step1aSuffixes = [][]rune{[]rune("sses"), []rune("ied"), []rune("ies"), []rune("us"), []rune("ss"), []rune("s")}
+
 // Step 1a is normalization of various special "s"-endings.
 //
 func step1a(w *snowballword.SnowballWord) bool {
 
-	suffix, suffixRunes := w.FirstSuffix("sses", "ied", "ies", "us", "ss", "s")
+	suffixRunes := w.FirstRuneSuffix(step1aSuffixes)
+	suffix := string(suffixRunes)
 	switch suffix {
 
 	case "sses":

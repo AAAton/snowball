@@ -4,20 +4,21 @@ import (
 	"github.com/aaaton/snowball/snowballword"
 )
 
+var step3Suffixes = [][]rune{[]rune("ational"), []rune("tional"), []rune("alize"), []rune("icate"), []rune("ative"),
+	[]rune("iciti"), []rune("ical"), []rune("ful"), []rune("ness")}
+
 // Step 3 is the stemming of various longer sufficies
 // found in R1.
 //
 func step3(w *snowballword.SnowballWord) bool {
 
-	suffix, suffixRunes := w.FirstSuffix(
-		"ational", "tional", "alize", "icate", "ative",
-		"iciti", "ical", "ful", "ness",
-	)
+	suffixRunes := w.FirstRuneSuffix(step3Suffixes)
 
 	// If it is not in R1, do nothing
-	if suffix == "" || len(suffixRunes) > len(w.RS)-w.R1start {
+	if len(suffixRunes) == 0 || len(suffixRunes) > len(w.RS)-w.R1start {
 		return false
 	}
+	suffix := string(suffixRunes)
 
 	// Handle special cases where we're not just going to
 	// replace the suffix with another suffix: there are

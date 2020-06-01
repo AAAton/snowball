@@ -4,6 +4,10 @@ import (
 	"github.com/aaaton/snowball/snowballword"
 )
 
+var step4Suffixes = [][]rune{[]rune("ement"), []rune("ance"), []rune("ence"), []rune("able"), []rune("ible"), []rune("ment"),
+	[]rune("ent"), []rune("ant"), []rune("ism"), []rune("ate"), []rune("iti"), []rune("ous"), []rune("ive"),
+	[]rune("ize"), []rune("ion"), []rune("al"), []rune("er"), []rune("ic")}
+
 // Step 4:
 // Search for the longest among the following suffixes,
 // and, if found and in R2, perform the action indicated.
@@ -17,17 +21,13 @@ import (
 func step4(w *snowballword.SnowballWord) bool {
 
 	// Find all endings in R1
-	suffix, suffixRunes := w.FirstSuffix(
-		"ement", "ance", "ence", "able", "ible", "ment",
-		"ent", "ant", "ism", "ate", "iti", "ous", "ive",
-		"ize", "ion", "al", "er", "ic",
-	)
-
+	suffixRunes := w.FirstRuneSuffix(step4Suffixes)
 	// If it does not fit in R2, do nothing.
 	if len(suffixRunes) > len(w.RS)-w.R2start {
 		return false
 	}
 
+	suffix := string(suffixRunes)
 	// Handle special cases
 	switch suffix {
 	case "":

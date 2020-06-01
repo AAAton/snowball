@@ -3,12 +3,8 @@ package snowball
 import (
 	"fmt"
 
-
-	"github.com/aaaton/snowball/swedish"
 	"github.com/aaaton/snowball/english"
-	"github.com/aaaton/snowball/french"
-	"github.com/aaaton/snowball/russian"
-	"github.com/aaaton/snowball/spanish"
+	"github.com/aaaton/snowball/swedish"
 )
 
 const (
@@ -23,12 +19,12 @@ func Stem(word, language string, stemStopWords bool) (stemmed string, err error)
 	switch language {
 	case "english":
 		f = english.Stem
-	case "spanish":
-		f = spanish.Stem
-	case "french":
-		f = french.Stem
-	case "russian":
-		f = russian.Stem
+	// case "spanish":
+	// 	f = spanish.Stem
+	// case "french":
+	// 	f = french.Stem
+	// case "russian":
+	// 	f = russian.Stem
 	case "swedish":
 		f = swedish.Stem
 	default:

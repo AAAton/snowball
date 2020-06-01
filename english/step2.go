@@ -4,19 +4,19 @@ import (
 	"github.com/aaaton/snowball/snowballword"
 )
 
+var step2Suffixes = [][]rune{[]rune("ational"), []rune("fulness"), []rune("iveness"), []rune("ization"), []rune("ousness"),
+	[]rune("biliti"), []rune("lessli"), []rune("tional"), []rune("alism"), []rune("aliti"), []rune("ation"),
+	[]rune("entli"), []rune("fulli"), []rune("iviti"), []rune("ousli"), []rune("anci"), []rune("abli"),
+	[]rune("alli"), []rune("ator"), []rune("enci"), []rune("izer"), []rune("bli"), []rune("ogi"), []rune("li")}
+
 // Step 2 is the stemming of various endings found in
 // R1 including "al", "ness", and "li".
 //
 func step2(w *snowballword.SnowballWord) bool {
 
 	// Possible sufficies for this step, longest first.
-	suffix, suffixRunes := w.FirstSuffix(
-		"ational", "fulness", "iveness", "ization", "ousness",
-		"biliti", "lessli", "tional", "alism", "aliti", "ation",
-		"entli", "fulli", "iviti", "ousli", "anci", "abli",
-		"alli", "ator", "enci", "izer", "bli", "ogi", "li",
-	)
-
+	suffixRunes := w.FirstRuneSuffix(step2Suffixes)
+	suffix := string(suffixRunes)
 	// If it is not in R1, do nothing
 	if suffix == "" || len(suffixRunes) > len(w.RS)-w.R1start {
 		return false
